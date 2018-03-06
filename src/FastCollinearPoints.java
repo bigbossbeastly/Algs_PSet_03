@@ -17,56 +17,38 @@ public class FastCollinearPoints
         
         for (int i = 0; i < pointCopy.length; i++)
         {
-            Point nextPoint = pointCopy[i];
-            Arrays.sort(pointCopy, nextPoint.slopeOrder());
-            
-            /*
-            for (int j = 0; j < points.length; j++)
-            {
-                System.out.println(points[j].slopeTo(points[i]));
-            }
-            System.out.println();
-            */
-            
-            // Create array list that keeps track of consecutive slopes
-            Point first = null;
-            Point last = null;
-            int count = 0;
+            Arrays.sort(pointCopy, pointCopy[i].slopeOrder());
+            ArrayList<Point> collinearPoints = new ArrayList<Point>();
             
             for (int j = 0; j < pointCopy.length; j++)
             {
+                
                 if (i == j)
                 {
                     continue;
                 }
                 
-                if (first == null)
+                if (collinearPoints.isEmpty()) 
                 {
-                    first = pointCopy[j];
-                }
-                
-                if (first.slopeTo(pointCopy[i]) == pointCopy[j].slopeTo(pointCopy[i]))
+                    collinearPoints.add(points[j]);
+                } 
+                else if (points[i].slopeTo(points[j - 1]) == points[i].slopeTo(points[j])) 
                 {
-                    count++;
-                }
-                else
+                    collinearPoints.add(points[j]);
+                } 
+                else if (collinearPoints.size() > 2) 
                 {
-                    if (count >= 4)
-                    {
-                        colinearSegments.add(new LineSegment(first, last));
-                    }
-                    
-                    first = pointCopy[j];
-                    count = 0;
+                    collinearPoints.add(points[i]);
+                    Point[] finalPoints = collinearPoints.toArray(new Point[collinearPoints.size()]);
+                    //Arrays.sort(finalPoints);
+                    colinearSegments.add(new LineSegment(finalPoints[0], finalPoints[finalPoints.length-1]));
+                    break;
+                } 
+                else 
+                {
+                    collinearPoints.clear();
+                    collinearPoints.add(points[j]);
                 }
-                
-                last = pointCopy[j];
-            }
-            
-            // edge case
-            if (count == pointCopy.length)
-            {
-                colinearSegments.add(new LineSegment(first, last));
             }
         }
         
@@ -111,7 +93,7 @@ public class FastCollinearPoints
     public static void main(String[] args) 
     {
         // read the n points from a file --------------
-        
+        /*
         In in = new In(args[0]);
         int n = in.readInt();
         Point[] points = new Point[n];
@@ -121,25 +103,22 @@ public class FastCollinearPoints
             int y = in.readInt();
             points[i] = new Point(x, y);
         }
-        
+        */
         //----------------------------------------------
         
         // Debug ------
-        /*
-        Point[] points = new Point[12];
-        points[0] = new Point(0, 0);
-        points[7] = new Point(1, 2);
-        points[1] = new Point(1, 3);
-        points[3] = new Point(1, 4);
-        points[5] = new Point(1, 5);
-        points[4] = new Point(1, 6);
-        points[2] = new Point(1, 7);
-        points[6] = new Point(1, 8);
-        points[8] = new Point(1, 1);
-        points[9] = new Point(2, 2);
-        points[10] = new Point(3, 3);
-        points[11] = new Point(4, 4);
-        */
+        
+        Point[] points = new Point[8];
+        points[0] = new Point(1, 1);
+        points[1] = new Point(2, 2);
+        points[2] = new Point(3, 3);
+        points[3] = new Point(4, 4);
+        points[4] = new Point(5, 5);
+        points[5] = new Point(6, 6);
+        points[6] = new Point(7, 7);
+        points[7] = new Point(8, 8);
+
+        
         // ------------
 
         // draw the points
@@ -162,3 +141,45 @@ public class FastCollinearPoints
         StdDraw.show();
     }
 }
+
+
+/*
+
+if (first == null)
+{
+    first = pointCopy[j];
+}
+
+if (first.slopeTo(pointCopy[i]) == pointCopy[j].slopeTo(pointCopy[i]))
+{
+    count++;
+}
+
+if (count >= 3)
+{
+    if (points[i].compareTo(first) == -1)
+    {
+        first = points[i];
+    }
+    else if (points[i].compareTo(last) == 1)
+    {
+        last = points[i];
+    }
+    
+    lastSegment = new LineSegment(first, last);
+}
+
+if (first.slopeTo(pointCopy[i]) != pointCopy[j].slopeTo(pointCopy[i]) || j == pointCopy.length - 1)
+{
+    if (lastSegment != null)
+    {
+        colinearSegments.add(lastSegment);
+    }
+    
+    first = pointCopy[j];
+    count = 0;
+}
+
+last = pointCopy[j];
+
+*/
