@@ -22,7 +22,7 @@ public class FastCollinearPoints
             
             for (int j = 0; j < pointCopy.length; j++)
             {
-                
+                // same point
                 if (i == j)
                 {
                     continue;
@@ -40,7 +40,7 @@ public class FastCollinearPoints
                 {
                     collinearPoints.add(points[i]);
                     Point[] finalPoints = collinearPoints.toArray(new Point[collinearPoints.size()]);
-                    //Arrays.sort(finalPoints);
+                    Arrays.sort(finalPoints);
                     colinearSegments.add(new LineSegment(finalPoints[0], finalPoints[finalPoints.length-1]));
                     break;
                 } 
@@ -93,7 +93,7 @@ public class FastCollinearPoints
     public static void main(String[] args) 
     {
         // read the n points from a file --------------
-        /*
+        
         In in = new In(args[0]);
         int n = in.readInt();
         Point[] points = new Point[n];
@@ -103,11 +103,11 @@ public class FastCollinearPoints
             int y = in.readInt();
             points[i] = new Point(x, y);
         }
-        */
+        
         //----------------------------------------------
         
         // Debug ------
-        
+        /*
         Point[] points = new Point[8];
         points[0] = new Point(1, 1);
         points[1] = new Point(2, 2);
@@ -117,7 +117,7 @@ public class FastCollinearPoints
         points[5] = new Point(6, 6);
         points[6] = new Point(7, 7);
         points[7] = new Point(8, 8);
-
+        */
         
         // ------------
 
