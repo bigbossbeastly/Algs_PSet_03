@@ -9,21 +9,22 @@ public class BruteCollinearPoints
     public BruteCollinearPoints(Point[] points)
     {
         ValidateArguments(points);
-        Arrays.sort(points); // Sort so start & end are easier to find
+        Point[] pointCopy = Arrays.copyOf(points, points.length);
+        Arrays.sort(pointCopy); // Sort so start & end are easier to find
         
         ArrayList<LineSegment> colinearSegments = new ArrayList<LineSegment>(); // Use array list so we don't need to manage array resizing
         
-        for (int i = 0; i < points.length - 3; i++)
+        for (int i = 0; i < pointCopy.length - 3; i++)
         {
-            for (int j = i + 1; j < points.length - 2; j++)
+            for (int j = i + 1; j < pointCopy.length - 2; j++)
             {
-                for (int k = j + 1; k < points.length - 1; k++)
+                for (int k = j + 1; k < pointCopy.length - 1; k++)
                 {
-                    for (int l = k + 1; l < points.length; l++)
+                    for (int l = k + 1; l < pointCopy.length; l++)
                     {
-                        if (points[i].slopeTo(points[j]) == points[i].slopeTo(points[k]) && points[i].slopeTo(points[k]) == points[i].slopeTo(points[l]))
+                        if (pointCopy[i].slopeTo(pointCopy[j]) == pointCopy[i].slopeTo(pointCopy[k]) && pointCopy[i].slopeTo(pointCopy[k]) == pointCopy[i].slopeTo(pointCopy[l]))
                         {
-                            colinearSegments.add(new LineSegment(points[i], points[l]));
+                            colinearSegments.add(new LineSegment(pointCopy[i], pointCopy[l]));
                         }
                     }
                 }
@@ -50,7 +51,7 @@ public class BruteCollinearPoints
             
             for (int j = 0; j < points.length; j++)
             {
-                if (i != j && points[i] == points[j])
+                if (i != j && points[i].compareTo(points[j]) == 0)
                 {
                     throw new java.lang.IllegalArgumentException("duplicate point");
                 }

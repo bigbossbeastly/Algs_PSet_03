@@ -12,13 +12,13 @@ public class FastCollinearPoints
     public FastCollinearPoints(Point[] points)
     {
         ValidateArguments(points);
-        
+        Point[] pointCopy = Arrays.copyOf(points, points.length);
         ArrayList<LineSegment> colinearSegments = new ArrayList<LineSegment>(); // Use array list so we don't need to manage array resizing
         
-        for (int i = 0; i < points.length; i++)
+        for (int i = 0; i < pointCopy.length; i++)
         {
-            Point nextPoint = points[i];
-            Arrays.sort(points, nextPoint.slopeOrder());
+            Point nextPoint = pointCopy[i];
+            Arrays.sort(pointCopy, nextPoint.slopeOrder());
             
             /*
             for (int j = 0; j < points.length; j++)
@@ -33,7 +33,7 @@ public class FastCollinearPoints
             Point last = null;
             int count = 0;
             
-            for (int j = 0; j < points.length; j++)
+            for (int j = 0; j < pointCopy.length; j++)
             {
                 if (i == j)
                 {
@@ -42,10 +42,10 @@ public class FastCollinearPoints
                 
                 if (first == null)
                 {
-                    first = points[j];
+                    first = pointCopy[j];
                 }
                 
-                if (first.slopeTo(points[i]) == points[j].slopeTo(points[i]))
+                if (first.slopeTo(pointCopy[i]) == pointCopy[j].slopeTo(pointCopy[i]))
                 {
                     count++;
                 }
@@ -56,15 +56,15 @@ public class FastCollinearPoints
                         colinearSegments.add(new LineSegment(first, last));
                     }
                     
-                    first = points[j];
+                    first = pointCopy[j];
                     count = 0;
                 }
                 
-                last = points[j];
+                last = pointCopy[j];
             }
             
             // edge case
-            if (count == points.length)
+            if (count == pointCopy.length)
             {
                 colinearSegments.add(new LineSegment(first, last));
             }
@@ -90,7 +90,7 @@ public class FastCollinearPoints
             
             for (int j = 0; j < points.length; j++)
             {
-                if (i != j && points[i] == points[j])
+                if (i != j && points[i].compareTo(points[j]) == 0)
                 {
                     throw new java.lang.IllegalArgumentException("duplicate point");
                 }
