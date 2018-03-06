@@ -65,11 +65,11 @@ public class Point implements Comparable<Point>
     {
         /* YOUR CODE HERE */
         //  treat the slope of a degenerate line segment (between a point and itself) as negative infinity
-        if (that.x == x & that.y == y) return Double.NEGATIVE_INFINITY;
+        if (that.x == x && that.y == y) return Double.NEGATIVE_INFINITY;
         //  treat the slope of a vertical line segment as positive infinity
-        if (that.x == x & that.y != y) return Double.POSITIVE_INFINITY;
+        if (that.x == x && that.y != y) return Double.POSITIVE_INFINITY;
         // Treat the slope of a horizontal line segment as positive zero
-        if (that.y == y & that.x != x) return 0.0;
+        if (that.y == y && that.x != x) return 0.0;
         // Default-case
         double slope = (double) (that.y - y)/(that.x - x);
         return slope;

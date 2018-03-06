@@ -1,5 +1,6 @@
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 public class BruteCollinearPoints
 {
@@ -20,10 +21,9 @@ public class BruteCollinearPoints
                 {
                     for (int l = k + 1; l < points.length; l++)
                     {
-                        if (points[i].slopeTo(points[j]) == points[i].slopeTo(points[k]) & points[i].slopeTo(points[k]) == points[i].slopeTo(points[l]))
+                        if (points[i].slopeTo(points[j]) == points[i].slopeTo(points[k]) && points[i].slopeTo(points[k]) == points[i].slopeTo(points[l]))
                         {
                             colinearSegments.add(new LineSegment(points[i], points[l]));
-                            System.out.println("Adding segment between points: " + points[i].toString() + " & " + points[l].toString());
                         }
                     }
                 }
@@ -50,7 +50,7 @@ public class BruteCollinearPoints
             
             for (int j = 0; j < points.length; j++)
             {
-                if (i != j & points[i] == points[j])
+                if (i != j && points[i] == points[j])
                 {
                     throw new java.lang.IllegalArgumentException("duplicate point");
                 }
@@ -65,6 +65,6 @@ public class BruteCollinearPoints
     
     public LineSegment[] segments()
     {
-        return lineSegments;
+        return Arrays.copyOf(lineSegments, lineSegments.length);
     }
 }

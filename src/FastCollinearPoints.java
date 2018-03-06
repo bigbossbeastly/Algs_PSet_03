@@ -90,7 +90,7 @@ public class FastCollinearPoints
             
             for (int j = 0; j < points.length; j++)
             {
-                if (i != j & points[i] == points[j])
+                if (i != j && points[i] == points[j])
                 {
                     throw new java.lang.IllegalArgumentException("duplicate point");
                 }
@@ -105,7 +105,7 @@ public class FastCollinearPoints
     
     public LineSegment[] segments()
     {
-        return lineSegments;
+        return Arrays.copyOf(lineSegments, lineSegments.length);
     }
     
     public static void main(String[] args) 
