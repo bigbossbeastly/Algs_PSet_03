@@ -83,13 +83,13 @@ public class FastCollinearPoints
        // repeated points or null points
         for (int i = 0; i < points.length; i++)
         {
-            if (points[i] == null)
-            {
-                throw new java.lang.IllegalArgumentException("null point");
-            }
-            
             for (int j = 0; j < points.length; j++)
             {
+                if (points[i] == null || points[j] == null)
+                {
+                    throw new java.lang.IllegalArgumentException("null point");
+                }
+                
                 if (i != j && points[i].compareTo(points[j]) == 0)
                 {
                     throw new java.lang.IllegalArgumentException("duplicate point");
