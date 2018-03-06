@@ -7,7 +7,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class FastCollinearPoints
 {
-    LineSegment[] lineSegments;
+    private LineSegment[] lineSegments;
     
     public FastCollinearPoints(Point[] points)
     {

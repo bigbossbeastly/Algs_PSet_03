@@ -3,7 +3,7 @@ import java.util.*;
 
 public class BruteCollinearPoints
 {
-    LineSegment[] lineSegments;
+    private LineSegment[] lineSegments;
     
     public BruteCollinearPoints(Point[] points)
     {
